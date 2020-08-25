@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body style="background-color: #2e2e2e">
+		<div class="bg-light container text-center mt-5 mb-5 shadow p-5 h-100">
+			<input
+				class="form-control w-50 container text-center"
+				name="url"
+				id="link"
+				type="text"
+				readonly
+			/>
+			<br />
+			<div class="container">
+				<a href="/" class="btn btn-primary">Home</a>
+			</div>
+		</div>
+
+		<script>
+			const link = document.getElementById("link");
+			const values = {};
+			window.location.href
+				.split("?")[1]
+				.split(/\?/gi)
+				.forEach((q) => (values[q.split("=")[0]] = q.split("=")[1]));
+			link.value = `${window.location.origin}/${values.uploaded}`;
+			link.select();
+
+			navigator.clipboard.writeText(link.value);
+		</script>
+	</body>
+</html>
