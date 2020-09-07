@@ -52,7 +52,8 @@ app.post("/upload", upload.single("upload"), async (req, res) => {
 	json.data.push(`/${file.filename}`);
 	await fs.writeFile(jsonFile, JSON.stringify(json), { encoding: "utf-8" });
 
-	res.redirect(`/?uploaded=${file.filename}`);
+	res.send(`https://cdn.matievisthekat.dev/${file.filename}`);
+	//res.redirect(`/?uploaded=${file.filename}`);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
