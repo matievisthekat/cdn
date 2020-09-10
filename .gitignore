@@ -1,4 +1,8 @@
 cdn.js
+public/*.png
+public/*.zip
+public/*.jpg
+public/*.jpeg
 
 # Logs
 logs
