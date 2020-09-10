@@ -6,13 +6,15 @@ const fs = require("fs/promises");
 const { join } = require("path");
 const fileTypes = ["png", "zip", "jpg", "jpeg"];
 
+fs.access(join(__dirname, "../public/")).catch(async () => await fs.mkdir(join(__dirname, "../public/")))
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, join(__dirname, "../public/"));
   },
   filename: function (req, file, cb) {
     const date = new Date();
-    cb(null, `${file.originalname}_${shortid.generate()}.${file.originalname.split(".").pop()}`);
+    cb(null, `${file.originalname.split(".")[0]}_${shortid.generate()}.${file.originalname.split(".").pop()}`);
   },
 });
 const upload = multer({
@@ -40,10 +42,12 @@ app.get("/", (req, res) => {
 app.post("/upload", upload.single("upload"), async (req, res) => {
   const file = req.file;
   const jsonFile = join(__dirname, "../public/json.json");
-  const content = await fs.readFile(jsonFile, {
-    encoding: "utf-8",
-  });
-  const json = JSON.parse(content);
+  const content = await fs
+    .readFile(jsonFile, {
+      encoding: "utf-8",
+    })
+    .catch(() => {});
+  const json = JSON.parse(content || '{ "data":[] }');
   json.data.push(`/${file.filename}`);
   await fs.writeFile(jsonFile, JSON.stringify(json), { encoding: "utf-8" });
 

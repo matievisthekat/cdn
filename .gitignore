@@ -3,6 +3,7 @@ public/*.png
 public/*.zip
 public/*.jpg
 public/*.jpeg
+public/json.json
 
 # Logs
 logs
