@@ -49,10 +49,10 @@ app.post("/upload", upload.single("upload"), async (req, res) => {
     .catch(() => {});
   const json = JSON.parse(content || '{ "data":[] }');
   json.data.push(`/${file.filename}`);
-  await fs.writeFile(jsonFile, JSON.stringify(json), { encoding: "utf-8" });
+  await fs.writeFile(jsonFile, JSON.stringify(json));
 
-  if (req.body.sharex) res.send(`https://cdn.matievisthekat.dev/${file.filename}`);
-  else res.redirect(`/?uploaded=${file.filename}`);
+  if (req.body.sharex) return res.status(200).send(`https://cdn.matievisthekat.dev/${file.filename}`);
+  else return res.redirect(`/?uploaded=${file.filename}`);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
