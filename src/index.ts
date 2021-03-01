@@ -18,10 +18,6 @@ const storage = multer.diskStorage({
 const upload = multer({
   dest: publicDir,
   preservePath: true,
-  fileFilter: (req, file, cb) => {
-    if (!file.mimetype.startsWith("audio/")) return cb(null, false);
-    cb(null, true);
-  },
   storage,
 });
 
