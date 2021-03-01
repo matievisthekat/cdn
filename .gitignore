@@ -1,5 +1,5 @@
-cdn.js
-public/*
+cert.pem
+private.pem
 
 # Logs
 logs
