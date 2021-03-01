@@ -22,9 +22,9 @@ const upload = multer({
   storage,
 });
 
+app.use(cors());
 app.set("json spaces", 2);
 app.use(express.static(resolve("public")));
-app.use(cors());
 app.use(bodyparser.json());
 
 app.get("/", async (req, res) => {
