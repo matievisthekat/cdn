@@ -3,6 +3,7 @@ import multer from "multer";
 import { nanoid } from "nanoid";
 import { resolve } from "path";
 import { readdir } from "fs-extra";
+import cors from "cors";
 
 const publicDir = resolve("public");
 const app = express();
@@ -23,6 +24,7 @@ const upload = multer({
 
 app.set("json spaces", 2);
 app.use(express.static(resolve("public")));
+app.use(cors());
 
 app.get("/", async (req, res) => {
   const files = await readdir(publicDir);
