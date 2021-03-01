@@ -32,15 +32,8 @@ app.get("/", async (req, res) => {
   res.status(200).json({ files: files.filter((f) => !f.startsWith(".")) });
 });
 
-app.post("/upload", upload.array("files"), (req, res) => {
-  const files: Express.Multer.File[] = [];
-
-  for (let i = 0; i < req.files.length; i++) {
-    const file = Array.isArray(req.files) ? req.files[i] : req.files["files"][i];
-    files.push(file);
-  }
-
-  res.status(201).json({ files });
+app.post("/upload", upload.single("file"), (req, res) => {
+  res.status(201).json({ file: req.file });
 });
 
 app.listen(3000, () => console.log("Listening on http://localhost:3000"));
