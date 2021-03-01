@@ -8,6 +8,12 @@ import bodyparser from "body-parser";
 
 const publicDir = resolve("public");
 const app = express();
+
+app.use(cors());
+app.set("json spaces", 2);
+app.use(express.static(resolve("public")));
+app.use(bodyparser.json());
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, publicDir);
@@ -21,11 +27,6 @@ const upload = multer({
   preservePath: true,
   storage,
 });
-
-app.use(cors());
-app.set("json spaces", 2);
-app.use(express.static(resolve("public")));
-app.use(bodyparser.json());
 
 app.get("/", async (req, res) => {
   const files = await readdir(publicDir);
